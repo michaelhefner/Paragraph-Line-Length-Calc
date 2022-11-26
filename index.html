@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>text wrap test</title>
+  </head>
+  <body>
+    <h1>Counting Paragraph Lines</h1>
+    <h2>How Many Lines?</h2>
+    <h3 id="line-output"></h3>
+      <p class="text-pg">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
+        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
+        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+        occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+        mollit anim id est laborum.
+      </p>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const getLineCount = () => {
+
+        const paragraph = document.querySelector(".text-pg");
+        paragraph.style.fontSize = "16px";
+
+        const setFontSize = paragraph.style.fontSize;
+        const fontSize = setFontSize.indexOf('rem') > -1 ? 
+        parseInt(setFontSize) * 16 : setFontSize.indexOf('em') > -1 ? parseInt(setFontSize) * 16 : parseInt(paragraph.style.fontSize);
+        const offsetHeight = paragraph.offsetHeight;
+        const output = document.querySelector("#line-output");
+        const lineHeight = 1.2;
+        const calcValue = Math.round(offsetHeight / (fontSize * lineHeight));
+        paragraph.style.lineHeight = `${lineHeight}`;
+        output.innerHTML = `The paragraph is ${calcValue} lines long.`;
+        
+        console.log('height', offsetHeight);
+        console.log('font size', fontSize);
+        console.log('line height', lineHeight);
+        console.log('height / (font * line-height) = ', calcValue);
+      };
+        getLineCount();
+
+        window.addEventListener("resize", () => {
+          getLineCount();
+        });
+    });
+  </script>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+    .text-pg {
+      max-width: 50vw;
+    }
+  </style>
+</html>
